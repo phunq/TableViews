@@ -14,7 +14,7 @@
 {
     // Initialization code
     
-    _lblTitle.font = [UIFont fontWithName:@"Lato-Bold" size:15];
+    _lblTitle.font = [UIFont fontWithName:@"Lato-Bold" size:14];
     _lblContent.font = [UIFont fontWithName:@"Lato-Light" size:13];
 }
 

@@ -24,8 +24,9 @@
 }
 
 + (NSStringAttributesObject *)getStringFormatForTapableLabel: (NSString *)string withObjectId: (NSString *)objectID {
-    UIFont *font = FONT_LATO_REGULAR(13);
-    UIColor *color = [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0];
+    UIFont *font = FONT_LATO_REGULAR(12);
+//    UIColor *color = [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0];
+    UIColor *color = [UIColor blueColor];
     
     NSStringAttributesObject *object = [[NSStringAttributesObject alloc] init];
     object.font = font;

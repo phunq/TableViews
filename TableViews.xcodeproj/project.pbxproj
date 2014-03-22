@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AA71DFD18DD261C002C1670 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA71DFC18DD261C002C1670 /* location.png */; };
+		5AA71E0218DD38BA002C1670 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA71E0118DD38BA002C1670 /* Common.m */; };
 		5AB3BEEA18DBE26D00841CC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB3BEE918DBE26D00841CC7 /* Foundation.framework */; };
 		5AB3BEEC18DBE26D00841CC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB3BEEB18DBE26D00841CC7 /* CoreGraphics.framework */; };
 		5AB3BEEE18DBE26D00841CC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB3BEED18DBE26D00841CC7 /* UIKit.framework */; };
@@ -50,6 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5AA71DFC18DD261C002C1670 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
+		5AA71E0018DD38BA002C1670 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		5AA71E0118DD38BA002C1670 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		5AB3BEE618DBE26D00841CC7 /* TableViews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AB3BEE918DBE26D00841CC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5AB3BEEB18DBE26D00841CC7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,7 +94,6 @@
 		5AB3BF4218DC26CC00841CC7 /* LabelTextkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelTextkit.m; sourceTree = "<group>"; };
 		5AB3BF4418DC308300841CC7 /* FormatsNSStringAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatsNSStringAttribute.h; sourceTree = "<group>"; };
 		5AB3BF4518DC308300841CC7 /* FormatsNSStringAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatsNSStringAttribute.m; sourceTree = "<group>"; };
-		5AB3BF4718DC382F00841CC7 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,8 +162,6 @@
 				5AB3BF2218DBEA8D00841CC7 /* ViewerDetailsDescriptionCell.h */,
 				5AB3BF2318DBEA8D00841CC7 /* ViewerDetailsDescriptionCell.m */,
 				5AB3BF2418DBEA8D00841CC7 /* ViewerDetailsDescriptionCell.xib */,
-				5AB3BF2718DBEB3700841CC7 /* Fonts */,
-				5AB3BEF018DBE26D00841CC7 /* Supporting Files */,
 				5AB3BF3C18DC1F2700841CC7 /* ViewerDetailsMoreInfoCell.h */,
 				5AB3BF3D18DC1F2700841CC7 /* ViewerDetailsMoreInfoCell.m */,
 				5AB3BF3E18DC1F2700841CC7 /* ViewerDetailsMoreInfoCell.xib */,
@@ -167,7 +169,11 @@
 				5AB3BF4218DC26CC00841CC7 /* LabelTextkit.m */,
 				5AB3BF4418DC308300841CC7 /* FormatsNSStringAttribute.h */,
 				5AB3BF4518DC308300841CC7 /* FormatsNSStringAttribute.m */,
-				5AB3BF4718DC382F00841CC7 /* Common.h */,
+				5AA71E0018DD38BA002C1670 /* Common.h */,
+				5AA71E0118DD38BA002C1670 /* Common.m */,
+				5AA71DFC18DD261C002C1670 /* location.png */,
+				5AB3BF2718DBEB3700841CC7 /* Fonts */,
+				5AB3BEF018DBE26D00841CC7 /* Supporting Files */,
 			);
 			path = TableViews;
 			sourceTree = "<group>";
@@ -301,6 +307,7 @@
 				5AB3BF3718DBEB4B00841CC7 /* Lato-BlackItalic.ttf in Resources */,
 				5AB3BF3218DBEB4B00841CC7 /* Lato-Hairline.ttf in Resources */,
 				5AB3BEF418DBE26D00841CC7 /* InfoPlist.strings in Resources */,
+				5AA71DFD18DD261C002C1670 /* location.png in Resources */,
 				5AB3BF3A18DBEB4B00841CC7 /* Lato-HairlineItalic.ttf in Resources */,
 				5AB3BF3518DBEB4B00841CC7 /* Lato-Black.ttf in Resources */,
 				5AB3BF2618DBEA8D00841CC7 /* ViewerDetailsDescriptionCell.xib in Resources */,
@@ -330,6 +337,7 @@
 				5AB3BF2518DBEA8D00841CC7 /* ViewerDetailsDescriptionCell.m in Sources */,
 				5AB3BF4618DC308300841CC7 /* FormatsNSStringAttribute.m in Sources */,
 				5AB3BF4318DC26CC00841CC7 /* LabelTextkit.m in Sources */,
+				5AA71E0218DD38BA002C1670 /* Common.m in Sources */,
 				5AB3BEF618DBE26D00841CC7 /* main.m in Sources */,
 				5AB3BF3F18DC1F2700841CC7 /* ViewerDetailsMoreInfoCell.m in Sources */,
 				5AB3BF1B18DBE2A600841CC7 /* TableViewsVC.m in Sources */,
