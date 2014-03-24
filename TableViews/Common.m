@@ -24,7 +24,8 @@
     NSArray *arr = [string componentsSeparatedByString:@" "];
     for (int i = 0; i < arr.count; i++) {
         [subString appendString:[NSString stringWithFormat:@"%@%@",subString.length?@" ":@"",arr[i]]];
-        NSString *stringCheck = [NSString stringWithFormat:@"%@ %@       ",subString,endString];
+//        NSString *stringCheck = [NSString stringWithFormat:@"%@ %@       ",subString,endString];
+        NSString *stringCheck = [NSString stringWithFormat:@"%@... %@",subString,endString];
         if ([self checkContaintSize:size ofString:stringCheck withFont:font]) {
             stringShorten = [NSString stringWithFormat:@"%@",subString];
             

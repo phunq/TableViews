@@ -441,12 +441,12 @@
     self.matches = [NSMutableArray array];
     
     if (self.labelHighlightType == LabelHighlightTypeText) {
-        //NSLog(@"self.arrayString:%d",self.arrayString.count);
+//        NSLog(@"self.arrayString:%d",self.arrayString.count);
     }
     NSMutableAttributedString* mutableString = [self.attributedText mutableCopy];
     
     
-    //NSLog(@"begin makeAttributesAndNSRangWithArrString:%d",_arrayString.count);
+//    NSLog(@"begin makeAttributesAndNSRangWithArrString:%d",_arrayString.count);
     for (int i = 0; i < _arrayString.count; i++) {
         
         __block NSRange rangeResult;
@@ -454,10 +454,9 @@
         
         NSString *pattern = object.string;
         NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
-        
         //  enumerate matches
         NSRange range = NSMakeRange(0,[self.text length]);
-        //NSLog(@"enumeratematches:%d",i);
+//        NSLog(@"enumeratematches:%d",i);
         [expression enumerateMatchesInString:self.text options:0 range:range usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
             
             rangeResult = [result rangeAtIndex:0];

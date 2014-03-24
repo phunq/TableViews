@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class LabelTextkit;
 @interface ViewerDetailsDescriptionCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *lblTitle;
-@property (nonatomic, weak) IBOutlet UILabel *lblContent;
+@property (nonatomic, weak) IBOutlet LabelTextkit *lblContent;
+@property (nonatomic, weak) IBOutlet UIView *separatorView;
 
 @end

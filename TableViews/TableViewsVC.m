@@ -14,9 +14,15 @@
 #import "FormatsNSStringAttribute.h"
 #import "Common.h"
 
+#define MAX_WIDTH 286
+#define FULL_TEXT @"By some measures, Google's Go programming language is a non-factor in development. Google Trends, which measures general interest in a search term, hardly registers a blip for Go compared to more established programming languages like Java, C++ and JavaScript."
+#define TITLE_TEXT @"The following sections help you to get started with blocks using practical examples."
+
 @interface TableViewsVC () <UITableViewDataSource, UITableViewDelegate> {
     __weak IBOutlet UITableView *_tbvViewerDetails;
     __weak IBOutlet UITableView *_tbvCommentList;
+    
+    BOOL _isViewedMore;
 }
 
 @end
@@ -39,6 +45,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _isViewedMore = NO;
+    
     [_tbvViewerDetails.layer setMasksToBounds:YES];
     [_tbvViewerDetails.layer setCornerRadius:5.0];
     [_tbvViewerDetails.layer setBorderColor: [UIColor lightGrayColor].CGColor];
@@ -59,8 +67,26 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0)
-        return 103.0;
+    if (indexPath.row == 0) {
+
+        CGSize singleLineSize = [Common sizeOfString:@"hello hello" inFont:FONT_LATO_LIGHT(13.0) maxWidth:MAX_WIDTH];
+        CGSize fullTextSize = [Common sizeOfString:FULL_TEXT inFont:FONT_LATO_LIGHT(13.0) maxWidth:MAX_WIDTH];
+        int numberOfLines = ceil(fullTextSize.height/singleLineSize.height);
+        
+        CGSize singleTitleLineSize = [Common sizeOfString:@"hello hello" inFont:FONT_LATO_BOLD(14.0) maxWidth:MAX_WIDTH];
+        CGSize fullTitleTextSize = [Common sizeOfString:TITLE_TEXT inFont:FONT_LATO_BOLD(14.0) maxWidth:MAX_WIDTH];
+        int numberOfTitleLines = ceil(fullTitleTextSize.height/singleTitleLineSize.height);
+        int titleHeight = numberOfTitleLines * singleTitleLineSize.height;
+        
+        NSLog(@"cell height: %f", titleHeight + singleLineSize.height * 5);
+        
+        if (!_isViewedMore)
+            return titleHeight + singleLineSize.height * 5;
+        else
+            return titleHeight + singleLineSize.height * (numberOfLines + 1);
+        
+        
+    }
     else if (indexPath.row == 1 || indexPath.row == 2)
         return 44.0;
     return 0;
@@ -81,11 +107,18 @@
                 cell = [topLevelObjects objectAtIndex:0];
             }
             
-            // work out the height of title
+            CGSize singleTitleLineSize = [Common sizeOfString:@"hello hello" inFont:FONT_LATO_BOLD(14.0) maxWidth:MAX_WIDTH];
+            CGSize fullTitleTextSize = [Common sizeOfString:TITLE_TEXT inFont:FONT_LATO_BOLD(14.0) maxWidth:MAX_WIDTH];
+            int numberOfTitleLines = ceil(fullTitleTextSize.height/singleTitleLineSize.height);
             
-            // work out the y coordination of content
+            // adjust the height of the cell
+            CGRect labelFrame = cell.lblTitle.frame;
+            labelFrame.size.height = (singleTitleLineSize.height + 2) * numberOfTitleLines;
+            cell.lblTitle.frame = labelFrame;
             
-            // work out the
+            cell.lblTitle.text = TITLE_TEXT;
+            
+            [self setDescriptionWithString:FULL_TEXT withLabel:cell];
             
             return cell;
         } else if (indexPath.row == 1 || indexPath.row == 2) {
@@ -101,7 +134,7 @@
             NSArray *array = [NSArray arrayWithObject:nameObject];
             
             [cell.lblContent setAttributesForTexts:array labelHighlightType:LabelHighlightTypeText withColor:[UIColor grayColor] touchToReturnSender:^(NSInteger sender, NSStringAttributesObject *object) {
-                NSLog(@"tap on label!");
+                NSLog(@"tap on label 2!");
             }];
             
             return cell;
@@ -114,77 +147,106 @@
 
 #pragma mark - Private methods
 
-- (void)setDescriptionWithString:(NSString *)string withLabel: (LabelTextkit *)label
+//- (void)setDescriptionWithString:(NSString *)string withLabel: (LabelTextkit *)lblContent
+- (void)setDescriptionWithString:(NSString *)string withLabel: (ViewerDetailsDescriptionCell *)cell
 {
+    LabelTextkit *lblContent = cell.lblContent;
     
-    CGSize size = [Common sizeOfString:string inFont:FONT_LATO_LIGHT(13.0) maxWidth:300];
-    CGSize sizeHeightRow = [Common sizeOfString:@"gdGDkhgs" inFont:FONT_LATO_LIGHT(13.0) maxWidth:300];
+    int separatorY = 0;
+
+    // work out the number of rows
+    CGSize singleLineSize = [Common sizeOfString:@"hello hello" inFont:FONT_LATO_LIGHT(13.0) maxWidth:MAX_WIDTH];
+    CGSize fullTextSize = [Common sizeOfString:FULL_TEXT inFont:FONT_LATO_LIGHT(13.0) maxWidth:MAX_WIDTH];
+    int numberOfLines = ceil(fullTextSize.height/singleLineSize.height);
+    NSString *shortenString = @"";
     
-    if (size.height> sizeHeightRow.height*5) {
-        
-        if (label.tag == 0) {
+    if (numberOfLines > 4) {        // if number of rows is greater than default
+        // get the custom string
+        if (_isViewedMore == NO) {
+            shortenString = [Common shortenString:FULL_TEXT withFrame:CGSizeMake(MAX_WIDTH, singleLineSize.height * 5) withFont:FONT_LATO_LIGHT(13.0) andEndString:@"View more"];
             
-        NSString *endString = @"View more";
-        NSString *shortenString = [Common shortenString:string withFrame:CGSizeMake(300, sizeHeightRow.height*5) withFont:FONT_LATO_LIGHT(13.0) andEndString:endString];
-        
-        UIFont *font = FONT_LATO_LIGHT(13.0);
-        UIColor *color = [UIColor grayColor];
-        NSStringAttributesObject *object = [[NSStringAttributesObject alloc] init];
-        object.font = font;
-        object.color = color;
-        object.string = endString;
-        object.isSelect = YES;
-        NSArray *arr = @[object];
-        
-        label.text = [NSString stringWithFormat:@"%@... %@",shortenString,@"View more"];
-        
-//        [UIView animateWithDuration:0.3 animations:^{
-//            CGRect rect = CGRectMake(0, 0, 320, 324);
-//            _viewHeader.frame = rect;
-//            [_tbvMain setTableHeaderView:_viewHeader];
-//        }];
-        
-        [label setAttributesForTexts:arr labelHighlightType:LabelHighlightTypeBackground withColor:[UIColor lightGrayColor] touchToReturnSender:^(NSInteger sender, NSStringAttributesObject *object) {
-            label.tag = 1;
-            label.text = [NSString stringWithFormat:@"%@",string];
-            CGSize sizeFull = [Common sizeOfString:string inFont:FONT_LATO_LIGHT(13.0) maxWidth:300];
-            CGRect rectFull = CGRectMake(0, 0, 320, 244);
-            rectFull.size.height += sizeFull.height + 5;
-//            _viewHeader.frame = rectFull;
-//
-//            [UIView animateWithDuration:0.3 animations:^{
-//                label.text = [NSString stringWithFormat:@"%@",string];
-//
-//                CGSize sizeFull = [Common sizeOfString:string inFont:FONT_LATO_LIGHT(13.0) maxWidth:300];
-//                
-//                CGRect rectFull = CGRectMake(0, 0, 320, 244);
-//                rectFull.size.height += sizeFull.height + 5;
-//                _viewHeader.frame = rectFull;
-//                [_tbvMain setTableHeaderView:_viewHeader];
-//                
-//            }];
-//
-        }];
-        } else if (label.tag == 1) {
-            label.tag = 0;
+            // adjust the height of the cell
+            CGRect labelFrame = lblContent.frame;
+            labelFrame.origin.y = cell.lblTitle.frame.origin.y + cell.lblTitle.frame.size.height;
+            labelFrame.size.height = singleLineSize.height * 5 - 5;
+            lblContent.frame = labelFrame;
+            
+            // set attributes for custom string
+            NSStringAttributesObject *nameObject1 = [[NSStringAttributesObject alloc] init];
+            nameObject1.font = FONT_LATO_LIGHT(13.0);
+            nameObject1.color = [UIColor blackColor];
+            nameObject1.string = shortenString;
+            nameObject1.isSelect = NO;
+            
+            NSStringAttributesObject *nameObject2 = [[NSStringAttributesObject alloc] init];
+            nameObject2.font = FONT_LATO_LIGHT(13.0);
+            nameObject2.color = [UIColor lightGrayColor];
+            nameObject2.string = @"View more";
+            nameObject2.isSelect = YES;
+            
+            NSArray *array = [NSArray arrayWithObjects:nameObject1, nameObject2, nil];
+            lblContent.text = [NSString stringWithFormat:@"%@... %@", shortenString, @"View more"];
+//            __weak TableViewsVC *myClass = self;
+            
+            [lblContent setAttributesForTexts:array labelHighlightType:LabelHighlightTypeText withColor:[UIColor blackColor] touchToReturnSender:^(NSInteger sender, NSStringAttributesObject *object) {
+                
+                if (_isViewedMore == NO) {
+                    _isViewedMore = YES;
+                }
+                
+//                [myClass setDescriptionWithString:FULL_TEXT withLabel:lblContent];
+                [_tbvViewerDetails reloadData];
+                
+            }];
+            
+            separatorY = cell.lblTitle.frame.origin.y + cell.lblTitle.frame.size.height + singleLineSize.height * 5 - 1;
+            CGRect separatorFrame = cell.separatorView.frame;
+            separatorFrame.origin.y = separatorY;
+            cell.separatorView.frame = separatorFrame;
+            
+            NSLog(@"separator y: %d", separatorY);
+            
+        } else {
+            
+            shortenString = FULL_TEXT;
+            
+            // adjust the height of the cell
+            CGRect labelFrame = lblContent.frame;
+            labelFrame.origin.y = cell.lblTitle.frame.origin.y + cell.lblTitle.frame.size.height;
+            labelFrame.size.height = singleLineSize.height * (numberOfLines + 1) - 5;
+            lblContent.frame = labelFrame;
+            
+            lblContent.font = FONT_LATO_LIGHT(13.0);
+            lblContent.text = [NSString stringWithFormat:@"%@", shortenString];
+            
+            separatorY = 28 + singleLineSize.height * (numberOfLines + 1) - 1;
+            CGRect separatorFrame = cell.separatorView.frame;
+            separatorFrame.origin.y = separatorY;
+            cell.separatorView.frame = separatorFrame;
         }
         
-    }else {
-//        if (_tbvMain && _viewHeader) {
-            label.text = string;
-//
-//            [UIView animateWithDuration:0.3 animations:^{
-//                CGRect rectNew = CGRectMake(0, 0, 320, 244);
-//                
-//                CGSize sizeNew = [Common sizeOfString:string inFont:FONT_LATO_LIGHT(13.0) maxWidth:300];
-//                
-//                rectNew.size.height += sizeNew.height + 5;
         
-//                _viewHeader.frame = rectNew;
-//                [_tbvMain setTableHeaderView:_viewHeader];
-//            }];
-//        }
+        
+    } else {        // number of lines
+        
+        // adjust the height of the cell
+        CGRect labelFrame = lblContent.frame;
+        labelFrame.origin.y = cell.lblTitle.frame.origin.y + cell.lblTitle.frame.size.height;
+        labelFrame.size.height = singleLineSize.height * (numberOfLines + 1) - 5;
+        lblContent.frame = labelFrame;
+        
+        lblContent.font = FONT_LATO_LIGHT(13.0);
+        lblContent.text = FULL_TEXT;
+        
+        separatorY = 28 + singleLineSize.height * (numberOfLines + 1) - 1;
+        CGRect separatorFrame = cell.separatorView.frame;
+        separatorFrame.origin.y = separatorY;
+        cell.separatorView.frame = separatorFrame;
+        
     }
+    
+    
+    
 }
 
 @end

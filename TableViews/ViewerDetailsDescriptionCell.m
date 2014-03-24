@@ -7,15 +7,18 @@
 //
 
 #import "ViewerDetailsDescriptionCell.h"
+#import "LabelTextkit.h"
+#import "Common.h"
 
 @implementation ViewerDetailsDescriptionCell
 
 - (void)awakeFromNib
 {
     // Initialization code
-    
-    _lblTitle.font = [UIFont fontWithName:@"Lato-Bold" size:14];
-    _lblContent.font = [UIFont fontWithName:@"Lato-Light" size:13];
+    _lblTitle.font = FONT_LATO_BOLD(14.0);
+//    _lblTitle.font = [UIFont fontWithName:@"Lato-Bold" size:14];
+//    _lblContent.font = [UIFont fontWithName:@"Lato-Light" size:13];
+//    _lblContent.font = FONT_LATO_LIGHT(13.0);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

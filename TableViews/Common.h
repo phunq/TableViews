@@ -10,6 +10,7 @@
 
 #define FONT_LATO_REGULAR(s) [UIFont fontWithName:@"Lato-Regular" size:s]
 #define FONT_LATO_LIGHT(s) [UIFont fontWithName:@"Lato-Light" size:s]
+#define FONT_LATO_BOLD(s) [UIFont fontWithName:@"Lato-Bold" size:s]
 
 @interface Common : NSObject
 
